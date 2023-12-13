@@ -17,20 +17,20 @@
             rel="stylesheet"
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
-        />
+        
     </head>
 
     <body>
         <header>
             <a class="flex-sm-fill text-sm-center nav-link active" href="#">
-                <img src="{% static "img/info.png" %}" style="max-width: 200px; margin: 30px">
+                <img src="{% static 'img/image.jpg' %}" style="max-width: 300px; margin: 30px">
             </a>
 
             <nav class="nav nav-pills flex-column flex-sm-row">
-                <a class="flex-sm-fill text-sm-center nav-link active" href="#">Active</a>
-                <a class="flex-sm-fill text-sm-center nav-link" href="#">Longer nav link</a>
-                <a class="flex-sm-fill text-sm-center nav-link" href="#">Link</a>
-                <a class="flex-sm-fill text-sm-center nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="{% url "index" %}">Inicio</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="#">Acerca de nosotros</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href={% url "apps.posts:posts" %}"">Posts</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="{% url "apps.contacto:contacto" %}">Contacto</a>
         </header>
 
         {% block contenido %}
