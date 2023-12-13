@@ -1,4 +1,4 @@
-from .fomrs import ContactoForm
+from .forms import ContactoForm
 from django.contrib import  messages
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
