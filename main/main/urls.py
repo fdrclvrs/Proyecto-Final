@@ -26,6 +26,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('', include('apps.posts.urls')),
     path('', include('apps.contacto.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

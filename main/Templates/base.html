@@ -2,14 +2,12 @@
 
 <!doctype html>
 <html lang="es-ar">
+
     <head>
         <title>{% block title %}Proyecto Final{% endblock title %}</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
         <!-- Bootstrap CSS v5.2.1 -->
         <link
@@ -25,14 +23,15 @@
     <body>
         <header>
             <a class="flex-sm-fill text-sm-center nav-link active" href="#">
-                <img src="{% static 'img/image.jpg' %}" style="max-width: 300px; margin: 30px">
+                <img src="{% static 'img/image.jpg' %}"style="max-width: 300px; margin: 30px;">
             </a>
 
-            <nav class="nav nav-pills flex-column flex-sm-row">
-                <a class="flex-sm-fill text-sm-center nav-link" href="{% url "index" %}">Inicio</a>
-                <a class="flex-sm-fill text-sm-center nav-link" href="#">Acerca de nosotros</a>
-                <a class="flex-sm-fill text-sm-center nav-link" href={% url "apps.posts:posts" %}"">Posts</a>
-                <a class="flex-sm-fill text-sm-center nav-link" href="{% url "apps.contacto:contacto" %}">Contacto</a>
+            <nav class="nav-links">
+                <a href="{% url 'index' %}">Inicio</a>
+                <a href="{% url 'apps.posts:posts' %}">Posts</a>
+                <a href="{% url 'apps.contacto:contacto' %}">Contacto</a>
+                <a href="{% url 'apps.usuario:login' %}">Login</a>  
+            </nav>
         </header>
 
         {% block contenido %}
@@ -42,7 +41,7 @@
         
         <footer id="sticky-footer" class="flex-shrink-0 py-5 bg-dark text-white-50">
             <div class="container text-center">
-                <small>Copyright &copy; Your Website </small>
+                <small>Copyright &copy; Grupo 10 Segunda Etapa Informatorio.</small>
             </div>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->

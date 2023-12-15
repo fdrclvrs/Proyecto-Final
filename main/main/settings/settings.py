@@ -30,6 +30,15 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'usuario.Usuario'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'jme.informatorio@gmail.com'
+EMAIL_HOST_PASSWORD = 'informatorio'
+
+SITE_NAME = 'Informatorio'
+
 
 # Application definition
 
@@ -43,7 +52,7 @@ INSTALLED_APPS = [
     
     'apps.posts',
     'apps.contacto',
-    'apps.usuario'
+    'apps.usuario',
 ]
 
 MIDDLEWARE = [
@@ -82,8 +91,12 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'p_final',
+        'USER': 'root',
+        'PASSWORD':'root',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
@@ -122,9 +135,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_DIR = (os.path.join(os.path.dirname(BASE_DIR),'static'),)
+STATICFILES_DIRS = (os.path.join(os.path.dirname(BASE_DIR),'static'),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

@@ -3,23 +3,20 @@
 
 {% block contenido %}
 
-<div class="container-fluid" style="margin: 200px;">
-
+    
     {% for i in posts %}
+
         <br>
         <li>{{ i.titulo }}</li>
         <li>{{ i.subtitulo }}</li>
         <li>{{ i.categoria }}</li>
         <br>
-        <a
-            id="boton_post"
-            class="btn btn-primary"
-            href="{% url "apps.posts:post_individual" i.id %}"
-            role="button"
-            >Ingresá a este Post</a>
+        <a id="boton_post" class="btn btn-primary" href="{% url "apps.posts:post_individual" i.id %}">Ingresá a este Post</a>
+
         {% empty %}
-        <h1>No Hay Registros</h1>
+        <h1>No hay Registros</h1>
+
     {% endfor %}
 
-</div>
+
 {% endblock  %}
