@@ -10,8 +10,19 @@
     <table>{{ posts.categoria }}</table>
     <br>
     <table>{{ posts.texto }}</table>
+    {% if posts.imagen %}
     <img src="{{ post.imagen.url }}" alt="">
-
+    {% else %}
+    <p>No hay imagen disponible</p>
+    {% endif %}
+    {% if  user.is_superuser or request.user|has_group:"Colaborador" %}
+    <div class="container-fluid" style="margin-top: 300px;">
+        <a id="bonton_post" href="{% url "apps.posts:post_update" pk=posts.id %}">Modificar Post</a>
+    </div>
+    <div class="container-fluid" style="margin-top: 300px;">
+        <a id="bonton_post" href="{% url "apps.posts:post_delete" pk=posts.pk %}">Eliminar Post</a>
+    </div>
+    {% endif %}
 </div>
 </center>
 <center>

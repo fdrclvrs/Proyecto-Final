@@ -3,17 +3,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth import authenticate, login
 
-
 class RegistroUsuarioForm(UserCreationForm):
     
     class Meta:
         model = Usuario
-        fields = ['usernmane', 'firts_name', 'last_name', 'password1', 'password2', 'email', 'imagen']
-        
-        
-        
+        fields = ['username', 'first_name', 'last_name', 'password1', 'password2', 'email', 'imagen']
+
+
 class LoginForm(forms.Form):
-    username = forms.CharField(label='Nombre de usuario')
+    username = forms.CharField(label='Nombre de Usuario')
     password = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
     
     def login(self, request):

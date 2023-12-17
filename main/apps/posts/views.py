@@ -1,9 +1,11 @@
 from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
-from .forms import ComentarioForm
-from .models import Comentario, Post
-from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
+from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
+from .models import Categoria, Comentario, Post
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -50,3 +52,42 @@ class ComentarioCreateView(LoginRequiredMixin, CreateView):
         form.instance.usuario = self.request.user
         form.instance.posts_id = self.kwargs['posts_id']
         return super().form_valid(form)
+    
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = CrearPostForm
+    template_name ='posts/crear_post.html'
+    success_url = reverse_lazy('apps.posts:posts')
+    
+class CategoriaCreateView(LoginRequiredMixin, CreateView):
+    model = Categoria
+    form_class = NuevaCategoriaForm
+    template = 'posts/categoria_form.html'
+    
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            return reverse_lazy('apps.posts:crear_post')
+
+class CategoriaListView(ListView):
+    model = Categoria
+    template_name = 'posts/categoria_list.html'
+    context_object_name = 'categorias'
+    
+class CategoriaDeleteView(LoginRequiredMixin, DeleteView):
+    model = Categoria
+    template_name = 'posts/categoria_confirm_delete.html'
+    success_url = reverse_lazy('apps.posts:categoria_list')
+
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    form_class = CrearPostForm
+    template_name = "posts/modificar_post.html"
+    success_url = reverse_lazy('apps.posts:posts')
+
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name ='posts/eliminar_post.html'
+    success_url = reverse_lazy('apps.posts:posts')

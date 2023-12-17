@@ -30,7 +30,14 @@
                 <a href="{% url 'index' %}">Inicio</a>
                 <a href="{% url 'apps.posts:posts' %}">Posts</a>
                 <a href="{% url 'apps.contacto:contacto' %}">Contacto</a>
-                <a href="{% url 'apps.usuario:login' %}">Login</a>  
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'apps.usuario:logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link" style="border: none; backgroud: none; padding: 0; cursor: pointer;">{{ user.username }}: Logout</button>
+                </form>
+                {% else %}
+                <a href="{% url 'apps.usuario:login' %}" class="nav-link">Iniciar sesión</a>
+                {% endif %} 
             </nav>
         </header>
 
