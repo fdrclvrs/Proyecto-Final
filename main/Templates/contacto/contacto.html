@@ -2,23 +2,50 @@
 {% load static %}
 
 {% block contenido %}
-
     <center>
         <form method="POST" style="margin: 200px">
             <h1>Formulario de contacto</h1>
             <br>
             {% if messages %}
-                {% for message in message %}
+                {% for message in messages %}
                     <div class='message {{ message.tags }}'> {{ message }} </div>
                 {% endfor %}
             {% endif %}
-            <table>
-                {% csrf_token %}
-                {{ form }}
-            </table>
+            
+            {% csrf_token %}
+            <div class="mb-1">
+                {{ form.nombre_apellido.label_tag }}
+            </div>
+            <div class="mb-3">
+                {{ form.nombre_apellido }}
+                {{ form.nombre_apellido.errors }}
+            </div>
+            <div class="mb-1">
+                {{ form.email.label_tag }}
+            </div>
+            <div class="mb-3">
+                
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            <div class="mb-1">
+                {{ form.asunto.label_tag }}
+            </div>
+            <div class="mb-3">
+                
+                {{ form.asunto }}
+                {{ form.asunto.errors }}
+            </div>
+            <div class="mb-1">
+                {{ form.mensaje.label_tag }}
+            </div>
+            <div class="mb-3">
+                
+                {{ form.mensaje }}
+                {{ form.mensaje.errors }}
+            </div>
+            
             <input type="submit" value="enviar" class="btn btn-primary">
         </form>
     </center>
-
-{% endblock  %}
-
+{% endblock %}

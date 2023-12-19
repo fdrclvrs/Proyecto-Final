@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="list-group">
+        <h1 class="text-center mb-4">Posts por Categorías</h1>
+        {% for post in posts %}
+        <a href="{% url "apps.posts:post_individual" id=post.id %}" class="list-group-item list-group-item-action">
+            {{ post.titulo }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

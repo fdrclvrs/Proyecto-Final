@@ -1,7 +1,8 @@
 from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse, reverse_lazy
+from apps import posts
 from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
 from .models import Categoria, Comentario, Post
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
@@ -15,7 +16,23 @@ class PostListView(ListView):
     model = Post
     template_name = "posts/posts.html"
     context_object_name = "posts"
-
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        orden = self.request.GET.get('orden')
+        if orden == 'reciente':
+            queryset = queryset.order_by('-fecha')
+        elif orden == 'antiguo':
+            queryset = queryset.order_by('fecha')
+        elif orden == 'alfabetico':
+            queryset = queryset.order_by('titulo')
+        return queryset
+            
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['orden'] = self.request.GET.get('orden', 'reciente')
+        return context
+    
 class PostDetailView(DetailView):
     model = Post
     template_name = "posts/post_individual.html"
@@ -38,7 +55,7 @@ class PostDetailView(DetailView):
             comentario.save()
             return redirect('apps.posts:post_individual', id=self.kwargs['id'])
         else:
-            context =self.get_context_data(**kwargs)
+            context = self.get_context_data(**kwargs)
             context['form'] = form
             return self.render_to_response(context)
     
@@ -52,6 +69,25 @@ class ComentarioCreateView(LoginRequiredMixin, CreateView):
         form.instance.usuario = self.request.user
         form.instance.posts_id = self.kwargs['posts_id']
         return super().form_valid(form)
+
+class ComentarioUpdateView(LoginRequiredMixin, UpdateView):
+    model = Comentario
+    form_class = ComentarioForm
+    template_name = 'comentario/comentario_form.html'
+    
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            return reverse('apps.posts:post_individual', args=[self.object.posts.id])
+
+class ComentarioDeleteView(LoginRequiredMixin, DeleteView):
+    model = Comentario
+    template_name = 'comentario/comentario_confirm_delete.html'
+    
+    def get_success_url(self):
+        return reverse('apps.posts:post_individual', args=[self.object.posts.id])
     
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -84,10 +120,20 @@ class CategoriaDeleteView(LoginRequiredMixin, DeleteView):
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = CrearPostForm
-    template_name = "posts/modificar_post.html"
+    template_name = "posts/modificar_posts.html"
     success_url = reverse_lazy('apps.posts:posts')
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name ='posts/eliminar_post.html'
     success_url = reverse_lazy('apps.posts:posts')
+
+class PostsPorCategoriaView(ListView):
+    model = Post
+    template_name = "posts/posts_por_categoria.html"
+    context_object_name= 'posts'
+    
+    def get_queryset(self):
+        return Post.objects.filter(categoria_id=self.kwargs['pk']) 
+
+

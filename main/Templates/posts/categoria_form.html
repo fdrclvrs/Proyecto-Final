@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-
-<center>
-    <div class="<container-fluid>" style="margin: 200px;">
+<div class="container my-5 mx-auto">
+    <div class="container-fluid" style="margin-top: 100px;">
         <h1>Agregar nueva categoría</h1>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Agregar">
+            
+            <div class="mb-3">
+                {{ form.as_p }}
+            </div>
+            <input type="submit" value="Agregar" class="btn btn-success">
         </form>
-        <div class="container-fluid" style="margin-top: 300px;">
-            <a id="boton_post" href="{% url "apps.posts:categoria_list" %}">Listar todas las categorías</a>
+        <div class="container-fluid my-3">
+            <a id="boton_post" href="{% url "apps.posts:categoria_list" %}" class="btn btn-primary">Listar todas las categorías</a>
         </div>
     </div>    
-</center>
+</div>
 {% endblock  %}

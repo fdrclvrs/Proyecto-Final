@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <h1 class="text-center">Lista de usuarios</h1>
+
+    <ul class="list-group">
+        {% for usuario in usuarios %}
+            <li class="list-group-item">
+                <a href="{% url "apps.usuario:usuario_delete" pk=usuario.pk %}" class="text-dark">{{ usuario.username }}</a>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No hay usuarios</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

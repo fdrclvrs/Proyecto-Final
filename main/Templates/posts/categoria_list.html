@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-<center>
-    <div class="container-fluid" style="margin: 200px;">
-        <h1>Categorías</h1>
-        <br>
-        <ul>
-            {% for categoria in categorias %}
-                <li>{{ categoria.nombre }}
-                    (<a style="color: black;" href="{% url "apps.posts:categoria_delete" pk=categoria.pk %}">Eliminar</a>)</li>
-                {% empty %}
-                    <li>No hay categorías</li>
-            {% endfor %}
-        </ul>
-    </div>
-</center>
-{% endblock  %}
+<div class="container mt-5">
+    <h1 class="text-center">Categorías</h1>
+
+    <ul class="list-group">
+        {% for categoria in categorias %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ categoria.nombre }}
+                <a href="{% url "apps.posts:categoria_delete" pk=categoria.pk %}" class="btn btn-danger">Eliminar</a>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No hay categorías</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

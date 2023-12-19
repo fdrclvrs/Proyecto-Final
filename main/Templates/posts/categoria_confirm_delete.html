@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-<center>
-    <div class="container-fluid" style="margin: 300px;">
-        <h1>Eliminar categoría</h1>
-        <p>¿Estás Seguro de que quieres eliminar la categoría "{{ object.nombre }}"?</p>
-        <form method="post">
-            {% csrf_token %}
-                <input type="submit" value="Sí, eliminar">
-                    <a style="color: black;" href="{% url "apps.posts:categoria_list" %}">No, cancelar</a>
-        </form>
+<div class="container my-5 mx-auto">
+    <div class="container-fluid" style="margin-top: 100px;">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Eliminar categoría</h1>
+                <p class="card-text">¿Estás seguro de que quieres eliminar la categoría "{{ object.nombre }}"?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <input type="submit" value="Sí, eliminar" class="btn btn-danger">
+                        <a href="{% url "apps.posts:categoria_list" %}" class="btn btn-primary">No, cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</center>
+</div>
 {% endblock  %}
