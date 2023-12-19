@@ -1,12 +1,12 @@
 from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
 from .models import Categoria, Comentario, Post
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+#from django.db.models.query import QuerySet
 # Create your views here.
 
 #Vista basada en funciones
@@ -91,3 +91,25 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name ='posts/eliminar_post.html'
     success_url = reverse_lazy('apps.posts:posts')
+
+
+#lo agrege del apunte
+
+class ComentarioUpdateView(LoginRequiredMixin, UpdateView):
+    model= Comentario
+    form_class= ComentarioForm
+    template_name= 'comentario/comentario_form.html'
+    
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            return reverse('apps.posts:post_individual', args=[self.object.posts.id])
+        
+class ComentarioDeleteView(LoginRequiredMixin, DeleteView):
+    model= Comentario
+    template_name = 'comentario/comentario_confirm_delete.html'
+    
+    def get_success_url(self):
+        return reverse('apps.posts:post_individual', args=[self.object.posts.id])

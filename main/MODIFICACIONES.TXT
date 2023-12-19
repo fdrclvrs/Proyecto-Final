@@ -1,0 +1,6 @@
+para el login despues de logearte en el settin agrege en la parte de apps:
+LOGIN_REDIRECT_URL = '/'  ---> te lleva al index si le pasas otra direcion te llava a esa pagina por ejemplo a los comentario
+LOGOUT_REDIRECT_URL = '/'  ----> a la pagina de salida --> le puse la derideccion al index
+
+Cambie la views de usuario de logout--> views.
+

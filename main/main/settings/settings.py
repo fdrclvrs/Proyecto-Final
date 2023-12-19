@@ -28,7 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+#REGISTRAR_REDIRECT_URL = '/'
+CREAR_COMENTARIO_REDIRECT_URL = "/comentario"
+
+
+
 AUTH_USER_MODEL = 'usuario.Usuario'
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -94,7 +102,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'p_final',
         'USER': 'root',
-        'PASSWORD':'root',
+        'PASSWORD':'34398738',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
